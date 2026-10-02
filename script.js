@@ -45,7 +45,7 @@ document.addEventListener('keydown', function (e) {
 // Button scrolling
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+  // console.log(s1coords);
   /*  console.log(e.target.getBoundingClientRect());
   console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset);
   console.log(
@@ -88,10 +88,34 @@ btnScrollTo.addEventListener('click', function (e) {
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   e.preventDefault();
-
+  console.log(e.target);
   // Matching strategy
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+///////////////////////////////////////
+// Tabbed component
+
+tabsContainer.addEventListener('click', function (e) {
+  // console.log(e.target);
+  const clicked = e.target.closest('.operations__tab');
+  // console.log(clicked);
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate tab
+  clicked.classList.add('operations__tab--active');
+// console.log(clicked.dataset.tab); 
+  // Activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
